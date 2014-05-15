@@ -121,28 +121,31 @@ class Square:public Rect
 	//~Square(){Shape::ShapeCountSub();}
 };
 class Polyline:public Shape, public Printable{
-		XList *polylist;
+		XList<Point> *polylist;
 		int x,y;
 		long double length;
 	public:
 		Polyline(char* name1):Shape(name1),Printable(name1)
 		{
-			polylist = new XList();
+			polylist = new XList<Point>();
 			length = 0;
 			x = 0;
 			y = 0;
 		}
-	//	~Polyline(){(*polylist).ClearAll();	}
+		~Polyline(){
+				(*polylist).ClearAll();
+				delete polylist;
+			}
 		void AddPoint( Point* const _point ){
 			if(!(*polylist).IsEmpty())
 				length += sqrt( (long double)(( x - ( *_point ).GetX() ) * ( x - ( *_point ).GetX() )+( y - ( *_point ).GetY() ) * ( y - ( *_point ).GetY() )));
-			(*polylist).AddLastElement((void*)_point);
+			(*polylist).AddLastElement(_point);
 			x = ( *_point ).GetX();
 			y = ( *_point ).GetY();
 			//(*( (Point*) ((void*)_point) )).PrintShape();
 		}
 		void PrintShape(){
-			XListElement* pointer;
+			XListElement<Point> *pointer;
 			int count = (*polylist).Count(),i;
 			std::cout << "Elements number of polyline is " << count << "\n";
 			pointer = (*polylist).firstElement;//(XListElement*)((*polylist).GetFirst());
@@ -150,7 +153,7 @@ class Polyline:public Shape, public Printable{
 		//	(*_point).PrintShape();
 			for( i = 0 ; i < count && pointer != 0; i++)//посмотреть, возможно последний элемент не учел
 			{
-				(*((Point*)((*pointer).element))).PrintShape();//(*((Point*)pointer)).PrintShape();
+				(*((*pointer).element)).PrintShape();
 				pointer = (*pointer).nextElement;
 			}
 			std::cout << "Length of polyline is " << length << "\n";

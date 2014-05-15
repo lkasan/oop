@@ -3,8 +3,8 @@
 #include <iostream>
 #include <stdexcept>
 
-
-XListElement::XListElement(XListElement *prev, void * o, XListElement *next)
+/*
+XListElement::XListElement(XListElement *prev, Type * o, XListElement *next)
 {
 	previousElement = prev;
 	nextElement = next;
@@ -18,7 +18,7 @@ XList::XList(){
 XList::~XList(){
 	ClearAll();
 }
-void XList::AddFirstElement( void* const object ){
+void XList::AddFirstElement( Type* const object ){
 //	if(sizeof(object)!=sizeof(void*))
 //		throw invalid_argument("The wrong type of an element");
 	if( number==0 )
@@ -36,7 +36,7 @@ void XList::AddFirstElement( void* const object ){
 	}
 	number++;
 }
-void XList::AddLastElement(void* const object){
+void XList::AddLastElement(Type* const object){
 //	if(sizeof(object)!=sizeof(void*))
 //		throw invalid_argument("The wrong type of an element");
 	if( number==0 )
@@ -73,7 +73,7 @@ void XList::DeleteFirstElement(){
 	//	delete ((Shape*)((*p).element));
 		delete p->element;
 		//delete (XListElement*)p;
-		//delete p;
+		delete p;
 		number--;
 	}
 }
@@ -93,14 +93,15 @@ void XList::DeleteLastElement(){
 			lastElement = (*p).previousElement;
 			(*lastElement).nextElement = 0;
 		}
+		delete p->element;
 		delete p;
 		number--;
 	}
 }
-void* XList::GetFirst(){
+Type* XList::GetFirst(){
 	return (*firstElement).element;
 }
-void* XList::GetLast(){
+Type* XList::GetLast(){
 	return (*lastElement).element;
 }
 void XList::GoThrueElements()
@@ -136,3 +137,4 @@ void XList::ClearAll(){
 	std::cout << "This list is empty" << "\n";
 }
 
+*/

@@ -11,22 +11,22 @@ int Shape::ShapeCount = 0;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	XList *p = new XList();
+	XList <Shape> *p = new XList<Shape>();
+	//XList <int> *p = new XList<int>();
 	int i1 = 1;
-	/*
-	int i2 = 2;
+	/*int i2 = 2;
 	int i3 = 3;
 	int i4 = 4;
 	int i5 = 5;
 	int i6 = 6;
 	int i7 = 7;
-	(*p).AddFirstElement((void*)&i1);
-	(*p).AddFirstElement((void*)&i2);
-	(*p).AddFirstElement((void*)&i3);
-	(*p).AddFirstElement((void*)&i4);
-	(*p).AddFirstElement((void*)&i5);
-	(*p).AddFirstElement((void*)&i6);
-	(*p).AddFirstElement((void*)&i7);
+	(*p).AddLastElement(&i1);
+	(*p).AddLastElement(&i2);
+	(*p).AddLastElement(&i3);
+	(*p).AddLastElement(&i4);
+	(*p).AddLastElement(&i5);
+	(*p).AddLastElement(&i6);
+	(*p).AddLastElement(&i7);
 	(*p).GoThrueElements();
 	(*p).DeleteFirstElement();
 	(*p).GoThrueElements();
@@ -35,8 +35,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	//XListElement *q = (*p).firstElement;
 	//std::cout << "This is the number of elements " << *((int*)(*p).GetLast()) <<"\n";
 
-	std::cout << "This is the number of elements " << (*p).Count() <<"\n";
-*/
+	std::cout << "This is the number of elements " << (*p).Count() <<"\n";*/
+
 	Point *_point1 = new Point("Point1",1,0);
 	Point *_point2 = new Point("Point2",0,1);
 	Point *_point3 = new Point("Point3",2,1);
@@ -56,7 +56,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	(*_poly).AddPoint(_point6);
 	(*_poly).AddPoint(_point7);
 	(*_poly).AddPoint(_point8);
-	//Shape::GetCount();
+	Shape::GetCount();
 
 	Circle* _circle = new Circle("Circle",0,0,5);
 
@@ -66,43 +66,35 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Square* _square2 = new Square("Square2",0,0,40,23);
 
-	//Shape::GetCount();
+	Shape::GetCount();
 
-/*
-	(*_point1).PrintShape();
+
+	//(*_point1).PrintShape();
 	(*_poly).PrintShape();
+	(*_circle).PrintShape();
 	(*_rect).PrintShape();
 	(*_square1).PrintShape();
 	(*_square2).PrintShape();
-*/
+
 
 	Shape::GetCount();
-//	try
-//	{
-		(*p).AddLastElement((void*)_poly);
-//	}
-//	catch(invalid_argument& e)
-//	{
-//      cerr << e.what() << endl;
-//      return -1;
-//	}
-	(*p).AddLastElement((void*)_rect);
-	(*p).AddLastElement((void*)_square1);
-	(*p).AddLastElement((void*)_square2);
-	(*p).AddLastElement((void*)_point3);
+	(*p).AddLastElement(_poly);
+	(*p).AddLastElement(_rect);
+	(*p).AddFirstElement(_circle);
+	(*p).AddLastElement(_square1);
+	(*p).AddLastElement(_square2);
 
 	int i, counter = (*p).Count();
 
-	XListElement *pointer;
-	pointer = (XListElement*)((*p).firstElement);
+	XListElement<Shape> *pointer;
+	pointer = (*p).firstElement;
 
 	for(i = 0; i < counter && pointer != 0; i++)
 	{
-		(*((Printable*)((*pointer).element))).PrintShape();
-		pointer = (XListElement*)((*pointer).nextElement);
+		//(*((*pointer).element)).PrintShape();
+		pointer = (*pointer).nextElement;
 	}
-	//(*p).ClearAll();
-	delete _square2;
+	(*p).ClearAll();
 	Shape::GetCount();
 
 	
