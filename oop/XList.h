@@ -25,8 +25,6 @@ class XList{
 		ClearAll();
 	};
 	void AddFirstElement( Type *object ){
-//	if(sizeof(object)!=sizeof(void*))
-//		throw invalid_argument("The wrong type of an element");
 		if( number==0 )
 		{
 			XListElement<Type> *e = new XListElement<Type>( 0 , object , 0 );
@@ -42,8 +40,6 @@ class XList{
 		number++;
 	};
 	void AddLastElement( Type *object){
-//	if(sizeof(object)!=sizeof(void*))
-//		throw invalid_argument("The wrong type of an element");
 		if( number==0 )
 		{
 			XListElement<Type> *e = new XListElement<Type>( 0 , object , 0 );
@@ -60,7 +56,7 @@ class XList{
 	};
 	void DeleteFirstElement(){
 		if( number==0 )
-			std::cout << "This list is empty" << "\n";
+			throw invalid_argument("This list is empty");
 		else
 		{
 			XListElement<Type> *p = firstElement;
@@ -74,13 +70,9 @@ class XList{
 				firstElement = (*p).nextElement;
 				(*firstElement).previousElement = 0;
 			}
-		//	delete ((Shape*)((*p).element));
-		//	delete p->element;
-			//delete (XListElement*)p;
 			number--;
 			delete (*p).element;
 			delete p;
-			
 		}
 	};
 	void DeleteLastElement(){
@@ -99,7 +91,6 @@ class XList{
 				lastElement = (*p).previousElement;
 				(*lastElement).nextElement = 0;
 			}
-		//	delete p->element;
 			number--;
 			delete (*p).element;
 			delete p;
@@ -116,16 +107,17 @@ class XList{
 		int i;
 		for(i = 0; i < 1000 && p != 0; i++)
 		{
-			std::cout << "This is the " << i + 1 /**((*p).element)*/ <<"th element (going forward) \n";
+			std::cout << *((Printable*)((*p).element)) <<"\n";
+			//std::cout << "This is the " << i + 1 /**((*p).element)*/ <<"th element (going forward) \n";
 			p = (*p).nextElement;
 		}
-		std::cout << "\n";
+		std::cout << "\n";/*
 		p = lastElement;
 		for(i = 0; i < 1000 && p != 0; i++)
 		{	
-			std::cout << "This is the " << number - i /* *((*p).element) */<<"th element (going backward)\n";
+			std::cout << "This is the " << number - i <<"th element (going backward)\n";
 			p = (*p).previousElement;
-		}
+		}*/
 	};
 	int Count(){
 		return number;
@@ -138,7 +130,15 @@ class XList{
 	};
 	void ClearAll(){
 		while( number > 0 )
+			try
+		{
 			DeleteFirstElement();
-	std::cout << "This list is empty" << "\n";
+		}
+		catch(invalid_argument& e)
+			{
+			cerr << e.what() << endl;
+				std::cout << "This list is empty" << "\n";
+			}
+
 	};
 };

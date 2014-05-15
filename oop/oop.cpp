@@ -3,10 +3,7 @@
 
 #include "stdafx.h"
 #include "oop.h"
-//#include "XList.h"
 #include "Shapes.h"
-#include <iostream>
-//#include <stdexcept>
 int Shape::ShapeCount = 0;
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -68,13 +65,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Shape::GetCount();
 
-
-	//(*_point1).PrintShape();
-	(*_poly).PrintShape();
-	(*_circle).PrintShape();
-	(*_rect).PrintShape();
-	(*_square1).PrintShape();
-	(*_square2).PrintShape();
+	
+	std::cout<<*_poly<<"\n";
+	std::cout<<*_circle<<"\n";
+	std::cout<<*_rect<<"\n";
+	std::cout<<*_square1<<"\n";
+	std::cout<<*_square2<<"\n";
+	std::cout<<*_point1<<"\n";
+	std::cout<<*((Printable*)_point1)<<"\n";
 
 
 	Shape::GetCount();
@@ -84,16 +82,19 @@ int _tmain(int argc, _TCHAR* argv[])
 	(*p).AddLastElement(_square1);
 	(*p).AddLastElement(_square2);
 
-	int i, counter = (*p).Count();
+	/*int i, counter = (*p).Count();
 
 	XListElement<Shape> *pointer;
 	pointer = (*p).firstElement;
-
 	for(i = 0; i < counter && pointer != 0; i++)
 	{
 		//(*((*pointer).element)).PrintShape();
+		cout << (Shape*)((*pointer).element);
 		pointer = (*pointer).nextElement;
-	}
+
+	}*/
+
+	(*p).GoThrueElements();
 	(*p).ClearAll();
 	Shape::GetCount();
 
